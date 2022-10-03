@@ -18,7 +18,6 @@ public class Main {
         System.out.println("enter the age >> ");
         int age = in.nextInt();
 
-
         // create table in db
         String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES (1, '"+ name +"', "+ age +", '"+ address +"', 20000.00 );";
         if(cn.execute(sql)){
