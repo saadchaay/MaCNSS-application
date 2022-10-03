@@ -4,6 +4,6 @@ package org.cnss;
 
 interface EnumValues {
     enum status { PENDING, REFUSED, VALIDATED }
-    enum documentType { ANALYSE, RADIO, SCANNER}
+    enum documentType { ANALYSE, RADIO, SCANNER }
     String setValue();
 }
