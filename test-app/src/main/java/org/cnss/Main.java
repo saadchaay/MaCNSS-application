@@ -48,24 +48,17 @@ public class Main {
 //      AgentsRepositoryImpl agentRepo = new AgentsRepositoryImpl();
         System.out.println("Please choose your session");
         s.menuSession();
+
+        // display form login and make an instance for the user credentials
         form.displayForm(s);
         if(auth(form, s)){
             switch (s.getLoggedIn()) {
-                case "ADMIN" -> {
-                    s.adminSession();
-                    app();
-                }
-                case "AGENT" -> {
-                    s.agentSession();
-                    app();
-                }
-                case "PATIENT" -> {
-                    s.patientSession();
-                    app();
-                }
+                case "ADMIN" -> s.adminSession();
+                case "AGENT" -> s.agentSession();
+                case "PATIENT" -> s.patientSession();
             }
+            app();
         }else System.out.println(RED+"Failed, your email or password incorrect."+RESET);
-
     }
 
     public static boolean auth(LoginForm f, Sessions s){

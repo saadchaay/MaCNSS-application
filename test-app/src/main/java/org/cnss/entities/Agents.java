@@ -54,10 +54,8 @@ public class Agents {
 
     public Boolean save(){
         String sql = "INSERT INTO users (email, password, verified) VALUES " +
-                "("+ this.email +"', "+ this.password +", true );";
-        if(db.execute(sql))
-            return true;
-        else return false;
+                "('"+ this.email +"', '"+ this.password +"', true );";
+        return db.execute(sql);
     }
 
     public Agents show(int id){
