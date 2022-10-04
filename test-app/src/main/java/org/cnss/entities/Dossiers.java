@@ -1,5 +1,6 @@
-package org.cnss;
+package org.cnss.entities;
 
+import org.cnss.helpers.*;
 import java.time.LocalDate;
 
 public class Dossiers{

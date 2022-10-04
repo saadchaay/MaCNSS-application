@@ -1,4 +1,4 @@
-package org.cnss;
+package org.cnss.controllers;
 
 public class Authentification {
 

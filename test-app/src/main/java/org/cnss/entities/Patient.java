@@ -1,4 +1,4 @@
-package org.cnss;
+package org.cnss.entities;
 
 public class Patient {
     private int matricule;

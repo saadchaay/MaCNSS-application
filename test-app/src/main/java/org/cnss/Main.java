@@ -1,7 +1,9 @@
 package org.cnss;
+import org.cnss.entities.*;
+import org.cnss.helpers.Database;
 
+import java.sql.ResultSet;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,11 +24,17 @@ public class Main {
         if(cn.execute(sql)){
             System.out.println("add success");
         }*/
+        String sql = "SELECT * FROM patients";
+        ResultSet res = cn.resultSet(sql);
 
-        Dossiers d1 = new Dossiers();
-        System.out.println(d1.getStatus());
-        d1.setStatus("refused");
-        System.out.println(d1.getStatus());
+        try {
+            while (res.next()){
+                System.out.println(res.getString("email"));
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+//        }
 
     }
 }

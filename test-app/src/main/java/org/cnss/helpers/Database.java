@@ -1,8 +1,8 @@
-package org.cnss;
+package org.cnss.helpers;
 
 import java.sql.*;
 
-class Database {
+public class Database {
     private String database = "cnss-app";
     private String username = "postgres";
     private String password = "admin";
@@ -39,6 +39,17 @@ class Database {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    public ResultSet resultSet(String s){
+        this.query(s);
+        try {
+            ResultSet result = stmt.executeQuery(s);
+            return result;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public void closeCnx(){

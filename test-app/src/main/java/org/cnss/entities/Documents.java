@@ -1,4 +1,6 @@
-package org.cnss;
+package org.cnss.entities;
+
+import org.cnss.helpers.EnumValues;
 
 public class Documents extends Papiers {
 
