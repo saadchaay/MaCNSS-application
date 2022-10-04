@@ -2,9 +2,11 @@ package org.cnss.repositories;
 
 import org.cnss.entities.Agents;
 
+import java.util.ArrayList;
+
 public interface AgentRepository {
     Agents getAgentById(int id);
     Agents saveAgent(Agents agent);
-    Agents getAllAgents();
+    ArrayList<Agents> getAllAgents();
     Boolean deleteAgent(int id);
 }
