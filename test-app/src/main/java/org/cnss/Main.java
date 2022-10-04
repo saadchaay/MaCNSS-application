@@ -1,6 +1,7 @@
 package org.cnss;
 import org.cnss.entities.*;
 import org.cnss.helpers.Database;
+import org.cnss.helpers.Sessions;
 
 import java.sql.ResultSet;
 import java.util.*;
@@ -10,6 +11,8 @@ public class Main {
         Database cn = new Database();
         Scanner in = new Scanner(System.in);
 
+        Sessions s = new Sessions();
+        s.menuSession();
         /*List<String> ns = Arrays.asList("Adam","Omar","Aymen","Sofia");
         List<String> square = ns.stream().map(el -> "Hello\t"+el).collect(Collectors.toList());
         System.out.println("enter the name >> ");
@@ -24,7 +27,7 @@ public class Main {
         if(cn.execute(sql)){
             System.out.println("add success");
         }*/
-        String sql = "SELECT * FROM patients";
+        /*String sql = "SELECT * FROM patients";
         ResultSet res = cn.resultSet(sql);
 
         try {
@@ -33,8 +36,10 @@ public class Main {
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
-        }
+        }*/
 //        }
 
     }
+
+
 }

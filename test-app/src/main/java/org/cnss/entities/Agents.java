@@ -3,10 +3,12 @@ package org.cnss.entities;
 import org.cnss.helpers.Database;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Agents {
     private String email;
     private String password;
+    private String role;
     private boolean verified;
 
     private Database db;
@@ -50,19 +52,48 @@ public class Agents {
         this.verified = verified;
     }
 
-    public Boolean save(Agents agent){
+    public Boolean save(){
         String sql = "INSERT INTO users (email, password, verified) VALUES " +
-                "("+ agent.email +"', "+ agent.password +", true );";
+                "("+ this.email +"', "+ this.password +", true );";
         if(db.execute(sql))
             return true;
         else return false;
     }
 
-//    public Agents show(int id){
-//        String sql = "SELECT * FROM users WHERE id = "+id;
-//        if(db.execute(sql)){
-//            ResultSet res = db.resultSet(sql);
-//        }
-////        Agents newAgent = new Agents(res.get(0))
-//    }
+    public Agents show(int id){
+        String sql = "SELECT * FROM users WHERE id = "+id;
+        if(db.execute(sql)){
+            ResultSet res = db.resultSet(sql);
+            try {
+                while ( res.next() ){
+                    this.email = res.getString("email");
+                    this.password = res.getString("password");
+                    this.role = res.getString("role");
+                    this.verified = res.getBoolean("verified");
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return this;
+    }
+
+    public ArrayList<Agents> all(){
+        ArrayList<Agents> agents = new ArrayList<>();
+        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
+            ResultSet res = db.resultSet("SELECT * FROM users WHERE role !='admin'");
+            try{
+                while ( res.next() ){
+                    this.email = res.getString("email");
+                    this.password = res.getString("password");
+                    this.role = res.getString("role");
+                    this.verified = res.getBoolean("verified");
+                    agents.add(this);
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return agents;
+    }
 }
