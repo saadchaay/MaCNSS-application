@@ -5,7 +5,7 @@ import org.cnss.repositories.AgentRepository;
 
 import java.util.ArrayList;
 
-public abstract class AgentsRepositoryImpl implements AgentRepository {
+public class AgentsRepositoryImpl implements AgentRepository {
 
     private Agents agent ;
 
@@ -24,5 +24,10 @@ public abstract class AgentsRepositoryImpl implements AgentRepository {
     @Override
     public ArrayList<Agents> getAllAgents() {
         return agent.all();
+    }
+
+    @Override
+    public Boolean deleteAgent(int id) {
+        return null;
     }
 }
