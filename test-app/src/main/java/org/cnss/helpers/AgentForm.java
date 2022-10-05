@@ -4,14 +4,12 @@ import org.cnss.controllers.AgentsRepositoryImpl;
 import org.cnss.entities.Agents;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class AgentForm {
-    private final AgentsRepositoryImpl agentController = new AgentsRepositoryImpl();
     private final Agents agent = new Agents();
-    private
-    Scanner in = new Scanner(System.in);
+    private final AgentsRepositoryImpl agentController = new AgentsRepositoryImpl(agent);
+    private final Scanner in = new Scanner(System.in);
 
     public Boolean addAgentForm(){
         System.out.println("\t*\t\tAGENT INFORMATION\t\t*");
@@ -23,13 +21,11 @@ public class AgentForm {
     }
 
     public void listAllAgent(){
-        System.out.println("there's the list");
         ArrayList<Agents> agents = agentController.getAllAgents();
-        System.out.println("|\t\t EMAIL \t\t|\t\t PASSWORD \t\t|\t\t ROLE \t\t|");
+        System.out.println("|\t\t List of agents \t\t|");
         for (Agents A: agents){
-            System.out.print("| "+A.getEmail()+" |"+A.getPassword()+" |");
+            System.out.println(A.toString());
         }
-
     }
 
 }

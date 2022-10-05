@@ -12,9 +12,7 @@ public class Dossiers{
     private Double montantRem;
 
     public Dossiers() {
-        EnumValues s1 = () -> {
-            return EnumValues.status.PENDING.toString();
-        };
+        EnumValues s1 = EnumValues.status.PENDING::toString;
         this.status = s1.setValue();
         this.montantRem = 0.00;
     }
@@ -23,9 +21,7 @@ public class Dossiers{
         this.codeDossier = codeDossier;
         this.matriculePatient = matriculePatient;
         this.appliedDate = appliedDate;
-        EnumValues s1 = () -> {
-            return EnumValues.status.PENDING.toString();
-        };
+        EnumValues s1 = EnumValues.status.PENDING::toString;
         this.status = s1.setValue();
         this.montantRem = 0.00;
     }

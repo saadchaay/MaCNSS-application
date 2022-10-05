@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Agents {
+    private int ID;
     private String email;
     private String password;
     private String role;
@@ -18,15 +19,21 @@ public class Agents {
         db = new Database();
     }
 
-    public Agents(String email, String password, boolean verified) {
+    public Agents(int id,String email, String password, String role, boolean verified) {
         db = new Database();
+        this.ID = id;
         this.email = email;
         this.password = password;
+        this.role = role;
         this.verified = verified;
     }
 
 
     //    *************************************************************** getters *********************
+    public int getID() {
+        return ID;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -38,7 +45,6 @@ public class Agents {
     public boolean isVerified() {
         return verified;
     }
-
 
     //    *************************************************************** setters *********************
     public void setEmail(String email) {
@@ -53,6 +59,15 @@ public class Agents {
         this.verified = verified;
     }
 
+    @Override
+    public String toString() {
+        return "" +
+                "ID=" + ID +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", verified=" + verified ;
+    }
+
     public Boolean save(){
         String sql = "INSERT INTO users (email, password, verified) VALUES " +
                 "('"+ this.email +"', '"+ this.password +"', true );";
@@ -61,39 +76,41 @@ public class Agents {
 
     public Agents show(int id){
         String sql = "SELECT * FROM users WHERE id = "+id;
-        if(db.execute(sql)){
-            ResultSet res = db.resultSet(sql);
-            try {
-                while ( res.next() ){
-                    this.email = res.getString("email");
-                    this.password = res.getString("password");
-                    this.role = res.getString("role");
-                    this.verified = res.getBoolean("verified");
-                }
-            }catch (Exception e){
-                System.out.println(e.getMessage());
+        ResultSet res = db.resultSet(sql);
+        try {
+            while ( res.next() ){
+                this.ID = res.getInt("id");
+                this.email = res.getString("email");
+                this.password = res.getString("password");
+                this.role = res.getString("role");
+                this.verified = res.getBoolean("verified");
             }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
         return this;
     }
 
     public ArrayList<Agents> all(){
         ArrayList<Agents> agents = new ArrayList<>();
-//        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
-            ResultSet res = db.resultSet("SELECT * FROM users WHERE role !='admin'");
-            try{
-                while ( res.next() ){
-                    this.email = res.getString("email");
-                    this.password = res.getString("password");
-                    this.role = res.getString("role");
-                    this.verified = res.getBoolean("verified");
-                    System.out.println(email);
-                    agents.add(this);
-                }
-            }catch (Exception e){
-                System.out.println(e.getMessage());
+        ResultSet res = db.resultSet("SELECT * FROM users WHERE role !='admin'");
+        try{
+            while ( res.next() ){
+                this.ID = res.getInt("id");
+                this.email = res.getString("email");
+                this.password = res.getString("password");
+                this.role = res.getString("role");
+                this.verified = res.getBoolean("verified");
+                Agents newAgent = new Agents(ID, email, password, role, verified);
+                agents.add(newAgent);
             }
-        return agents.size()>0?agents:null;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        /*for (Agents a: agents){
+
+        }*/
+        return agents;
     }
 
     //get specific Admin
@@ -128,16 +145,11 @@ public class Agents {
             }
         }
         return exist;
-//        return (allAdmin().contains(email) && allAdmin().contains(password))? true : false;
     }
 
     //check if Agent exist
     public boolean ifExist(String email,String password){
-        System.out.println("tttttttttttttttttttest");
-//        boolean exist = false;
-//        return (all().contains(email) && all().contains(password))? true : false;
         ArrayList<Agents> listAgent = all();
-
         for (Agents agent : listAgent) {
             System.out.println(agent.getEmail());
             if(agent.getEmail().equals(email) && agent.getPassword().equals(password)){

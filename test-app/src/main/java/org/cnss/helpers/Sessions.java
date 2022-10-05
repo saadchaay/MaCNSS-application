@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import static org.cnss.Main.*;
+
+
 public class Sessions {
     private final HashMap<Integer, String> allUsers = new HashMap<>() ;
     private String loggedIn;
@@ -46,7 +49,7 @@ public class Sessions {
                 case 3 -> loggedIn = allUsers.get(3);
             }
             if(choice < 1 || choice > 3){
-                System.out.print("\nFailed, enter the num between 1 and 3 >>  ");
+                System.out.print(RED+"\nFailed, enter the num between 1 and 3 >>  "+RESET);
             }
         }while (choice < 1 || choice >3);
     }
@@ -64,8 +67,8 @@ public class Sessions {
             switch (choice){
                 case 1:
                     if(form.addAgentForm())
-                        System.out.println("Add successfully");
-                    else System.out.println("Failed to add an agent");
+                        System.out.println(GREEN+"\n\tAdd an agent successfully."+RESET);
+                    else System.out.println(RED+"\n\tFailed to add an agent"+RESET);
                     break;
                 case 2:
                     // function to update an agent
@@ -94,11 +97,10 @@ public class Sessions {
     }
 
     public void agentSession(){
-        System.out.println("\t Admin Dashboard: ");
-        System.out.println("1: Add new agent;");
-        System.out.println("2: Update an agent;");
-        System.out.println("3: Delete an agent;");
-        System.out.println("4: List all agents;");
+        System.out.println("\n\t Agent Dashboard: ");
+        System.out.println("1: Add new Dossier for a patient;");
+        System.out.println("2: Manage Dossiers;");
+        System.out.println("3: LogOut;");
         int choice;
         do {
             choice = in.nextInt();
@@ -110,15 +112,12 @@ public class Sessions {
                     // function to update an agent
                     break;
                 case 3:
-                    // function to delete an agent
                     break;
-                case 4:
-                    // list all agents
             }
-            if(choice < 1 || choice > 4){
-                System.out.print("\nFailed, enter the num between 1 and 4 >>  ");
+            if(choice < 1 || choice > 3){
+                System.out.print("\nFailed, enter the num between 1 and 3 >>  ");
             }
-        }while (choice < 1 || choice >4);
+        }while (choice < 1 || choice > 3);
     }
 
     public void patientSession(){
