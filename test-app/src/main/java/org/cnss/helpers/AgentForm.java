@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class AgentForm {
-    private AgentsRepositoryImpl agentController = new AgentsRepositoryImpl();
+    private final AgentsRepositoryImpl agentController = new AgentsRepositoryImpl();
     private final Agents agent = new Agents();
     private
     Scanner in = new Scanner(System.in);
@@ -23,12 +23,13 @@ public class AgentForm {
     }
 
     public void listAllAgent(){
-        for (int i=0; i<25; i++)
-            System.out.print("_");
+        System.out.println("there's the list");
         ArrayList<Agents> agents = agentController.getAllAgents();
+        System.out.println("|\t\t EMAIL \t\t|\t\t PASSWORD \t\t|\t\t ROLE \t\t|");
         for (Agents A: agents){
-            System.out.print("\t");
+            System.out.print("| "+A.getEmail()+" |"+A.getPassword()+" |");
         }
+
     }
 
 }

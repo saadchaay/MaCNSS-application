@@ -78,20 +78,21 @@ public class Agents {
 
     public ArrayList<Agents> all(){
         ArrayList<Agents> agents = new ArrayList<>();
-        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
-            ResultSet res = db.resultSet("SELECT * FROM users WHERE role !='admin'");
+//        if(db.execute("SELECT * FROM users;")){
+            ResultSet res = db.resultSet("SELECT * FROM users");
             try{
                 while ( res.next() ){
                     this.email = res.getString("email");
                     this.password = res.getString("password");
                     this.role = res.getString("role");
                     this.verified = res.getBoolean("verified");
+                    System.out.println(email);
                     agents.add(this);
                 }
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
-        }
+//        }
         return agents;
     }
 }

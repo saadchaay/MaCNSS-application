@@ -18,8 +18,6 @@ public class Database {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        System.out.println("Opened connexion successfully");
-
     }
 
     public void query(String request){
@@ -44,8 +42,7 @@ public class Database {
     public ResultSet resultSet(String s){
         this.query(s);
         try {
-            ResultSet result = stmt.executeQuery(s);
-            return result;
+            return stmt.executeQuery(s);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

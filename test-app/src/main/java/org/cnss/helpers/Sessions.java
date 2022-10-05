@@ -74,7 +74,7 @@ public class Sessions {
                     // function to delete an agent
                     break;
                 case 4:
-                    // list all agents
+                    form.listAllAgent();
                     break;
                 case 5:
                     break;
