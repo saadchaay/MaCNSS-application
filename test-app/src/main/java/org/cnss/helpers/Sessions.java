@@ -96,38 +96,43 @@ public class Sessions {
         }
     }
 
-    public void agentSession(){
-        System.out.println("\n\t Agent Dashboard: ");
-        System.out.println("1: Add new Dossier for a patient;");
-        System.out.println("2: Manage Dossiers;");
-        System.out.println("3: LogOut;");
-        int choice;
-        do {
-            choice = in.nextInt();
-            switch (choice){
-                case 1:
-                    if(dossierForm.addDossierForm()){
-                        System.out.println(GREEN+"\n\tAdd dossier successfully."+RESET);
-                    }
-                    break;
-                case 2:
-                    // function to update an agent
-                    break;
-                case 3:
-                    break;
-            }
-            if(choice < 1 || choice > 3){
-                System.out.print("\nFailed, enter the num between 1 and 3 >>  ");
-            }
-        }while (choice < 1 || choice > 3);
+    public void agentSession(String codeVerif){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Code de Verification : ");
+        String codeEntrer = sc.nextLine();
+        if(codeVerif.equals(codeEntrer)){
+            System.out.println("\n\t Agent Dashboard: ");
+            System.out.println("1: Add new Dossier for a patient;");
+            System.out.println("2: Manage Dossiers;");
+            System.out.println("3: LogOut;");
+            int choice;
+            do {
+                choice = in.nextInt();
+                switch (choice){
+                    case 1:
+                        if(dossierForm.addDossierForm()){
+                            System.out.println(GREEN+"\n\tAdd dossier successfully."+RESET);
+                        }
+                        break;
+                    case 2:
+                        // function to update an agent
+                        break;
+                    case 3:
+                        break;
+                }
+                if(choice < 1 || choice > 3){
+                    System.out.print("\nFailed, enter the num between 1 and 3 >>  ");
+                }
+            }while (choice < 1 || choice > 3);
+        }else{
+            System.out.println(RED+"The code in  incorrect"+RESET);
+        }
     }
 
     public void patientSession(){
         System.out.println("\t Admin Dashboard: ");
-        System.out.println("1: Add new agent;");
-        System.out.println("2: Update an agent;");
-        System.out.println("3: Delete an agent;");
-        System.out.println("4: List all agents;");
+        System.out.println("1: Check all dossiers;");
+        System.out.println("2: LogOut;");
         int choice;
         do {
             choice = in.nextInt();
