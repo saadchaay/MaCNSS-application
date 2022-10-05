@@ -107,20 +107,14 @@ public class Agents {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        /*for (Agents a: agents){
-
-        }*/
         return agents;
     }
 
     //get specific Admin
     public ArrayList<Agents> allAdmin(){
         ArrayList<Agents> agents = new ArrayList<>();
-//        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
             ResultSet res = db.resultSet("SELECT * FROM users WHERE role ='admin'");
-            System.out.println("test");
             try{
-                System.out.println("inside while");
                 while ( res.next() ){
                     this.email = res.getString("email");
                     this.password = res.getString("password");
@@ -131,17 +125,17 @@ public class Agents {
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
-//        }
         return agents;
     }
 
     //get specific admin
     public boolean ifAdminExist(String email,String password){
-        Boolean exist = false;
+        boolean exist = false;
         ArrayList<Agents> listAdmin = allAdmin();
         for (Agents admin: listAdmin) {
-            if(admin.getEmail().equals(email) && admin.getPassword().equals(password)){
+            if (admin.getEmail().equals(email) && admin.getPassword().equals(password)) {
                 exist = true;
+                break;
             }
         }
         return exist;
@@ -151,7 +145,6 @@ public class Agents {
     public boolean ifExist(String email,String password){
         ArrayList<Agents> listAgent = all();
         for (Agents agent : listAgent) {
-            System.out.println(agent.getEmail());
             if(agent.getEmail().equals(email) && agent.getPassword().equals(password)){
                return true;
             }
