@@ -56,12 +56,9 @@ public class Main {
         Authentification auth = new Authentification(form.getCredentials(),form.getPassword(),s.getLoggedIn());
         if(auth.getAuth()){
             switch (s.getLoggedIn()) {
-                case "ADMIN" : s.adminSession(); break ;
-                case "AGENT" : {
-                    s.agentSession(senMail.sendMail(form.getCredentials()));
-                    break;
-                }
-                case "PATIENT" : break;
+                case "ADMIN" -> s.adminSession();
+                case "AGENT" -> s.agentSession(senMail.sendMail(form.getCredentials()));
+                case "PATIENT" -> s.patientSession();
             }
 
         }else System.out.println(RED+"Failed, your email or password incorrect."+RESET);
