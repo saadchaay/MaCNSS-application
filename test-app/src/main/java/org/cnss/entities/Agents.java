@@ -78,7 +78,6 @@ public class Agents {
 
     public ArrayList<Agents> all(){
         ArrayList<Agents> agents = new ArrayList<>();
-//        if(db.execute("SELECT * FROM users;")){
             ResultSet res = db.resultSet("SELECT * FROM users");
             try{
                 while ( res.next() ){
@@ -92,7 +91,6 @@ public class Agents {
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
-//        }
-        return agents;
+        return agents.size()>0?agents:null;
     }
 }
