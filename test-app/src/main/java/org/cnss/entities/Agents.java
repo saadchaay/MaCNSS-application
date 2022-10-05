@@ -89,7 +89,7 @@ public class Agents {
                     this.password = res.getString("password");
                     this.role = res.getString("role");
                     this.verified = res.getBoolean("verified");
-                    System.out.println(email);
+//                    System.out.println(email);
                     agents.add(this);
                 }
             }catch (Exception e){
@@ -104,9 +104,9 @@ public class Agents {
         ArrayList<Agents> agents = new ArrayList<>();
 //        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
             ResultSet res = db.resultSet("SELECT * FROM users WHERE role ='admin'");
-            System.out.println("test");
+//            System.out.println("test");
             try{
-                System.out.println("inside while");
+//                System.out.println("inside while");
                 while ( res.next() ){
                     this.email = res.getString("email");
                     this.password = res.getString("password");
@@ -123,26 +123,26 @@ public class Agents {
 
     //get specific admin
     public boolean ifAdminExist(String email,String password){
-        Boolean exist = false;
+
         ArrayList<Agents> listAdmin = allAdmin();
         for (Agents admin: listAdmin) {
             if(admin.getEmail().equals(email) && admin.getPassword().equals(password)){
-                exist = true;
+                return true;
             }
         }
-        return exist;
+        return false;
 //        return (allAdmin().contains(email) && allAdmin().contains(password))? true : false;
     }
 
     //check if Agent exist
     public boolean ifExist(String email,String password){
-        System.out.println("tttttttttttttttttttest");
+//        System.out.println("tttttttttttttttttttest");
 //        boolean exist = false;
 //        return (all().contains(email) && all().contains(password))? true : false;
         ArrayList<Agents> listAgent = all();
 
         for (Agents agent : listAgent) {
-            System.out.println(agent.getEmail());
+//            System.out.println(agent.getEmail());
             if(agent.getEmail().equals(email) && agent.getPassword().equals(password)){
                return true;
             }
