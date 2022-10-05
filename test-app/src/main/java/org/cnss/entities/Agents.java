@@ -81,20 +81,20 @@ public class Agents {
         ArrayList<Agents> agents = new ArrayList<>();
 
 //        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
-            ResultSet res = db.resultSet("SELECT * FROM users WHERE role !='admin'");
+        ResultSet res = db.resultSet("SELECT * FROM users WHERE role !='admin'");
 
-            try{
-                while ( res.next() ){
-                    this.email = res.getString("email");
-                    this.password = res.getString("password");
-                    this.role = res.getString("role");
-                    this.verified = res.getBoolean("verified");
+        try{
+            while ( res.next() ){
+                this.email = res.getString("email");
+                this.password = res.getString("password");
+                this.role = res.getString("role");
+                this.verified = res.getBoolean("verified");
 //                    System.out.println(email);
-                    agents.add(this);
-                }
-            }catch (Exception e){
-                System.out.println(e.getMessage());
+                agents.add(this);
             }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 //        }
         return agents;
     }
@@ -103,20 +103,20 @@ public class Agents {
     public ArrayList<Agents> allAdmin(){
         ArrayList<Agents> agents = new ArrayList<>();
 //        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
-            ResultSet res = db.resultSet("SELECT * FROM users WHERE role ='admin'");
+        ResultSet res = db.resultSet("SELECT * FROM users WHERE role ='admin'");
 //            System.out.println("test");
-            try{
+        try{
 //                System.out.println("inside while");
-                while ( res.next() ){
-                    this.email = res.getString("email");
-                    this.password = res.getString("password");
-                    this.role = res.getString("role");
-                    this.verified = res.getBoolean("verified");
-                    agents.add(this);
-                }
-            }catch (Exception e){
-                System.out.println(e.getMessage());
+            while ( res.next() ){
+                this.email = res.getString("email");
+                this.password = res.getString("password");
+                this.role = res.getString("role");
+                this.verified = res.getBoolean("verified");
+                agents.add(this);
             }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 //        }
         return agents;
     }
@@ -144,7 +144,7 @@ public class Agents {
         for (Agents agent : listAgent) {
 //            System.out.println(agent.getEmail());
             if(agent.getEmail().equals(email) && agent.getPassword().equals(password)){
-               return true;
+                return true;
             }
         }
         return false;

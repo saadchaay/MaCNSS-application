@@ -93,32 +93,41 @@ public class Sessions {
         }
     }
 
-    public void agentSession(){
-        System.out.println("\t Admin Dashboard: ");
-        System.out.println("1: Add new agent;");
-        System.out.println("2: Update an agent;");
-        System.out.println("3: Delete an agent;");
-        System.out.println("4: List all agents;");
+    public void agentSession(String codeVerif){
         int choice;
-        do {
-            choice = in.nextInt();
-            switch (choice){
-                case 1:
-                    // function to add new agent
-                    break;
-                case 2:
-                    // function to update an agent
-                    break;
-                case 3:
-                    // function to delete an agent
-                    break;
-                case 4:
-                    // list all agents
-            }
-            if(choice < 1 || choice > 4){
-                System.out.print("\nFailed, enter the num between 1 and 4 >>  ");
-            }
-        }while (choice < 1 || choice >4);
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Code de Verification : ");
+        String codeEntrer = sc.nextLine();
+        if(codeVerif.equals(codeEntrer)){
+            System.out.println("\t Agent Dashboard: ");
+            System.out.println("1: Add new agent;");
+            System.out.println("2: Update an agent;");
+            System.out.println("3: Delete an agent;");
+            System.out.println("4: List all agents;");
+            do {
+                choice = in.nextInt();
+                switch (choice){
+                    case 1:
+                        // function to add new agent
+                        break;
+                    case 2:
+                        // function to update an agent
+                        break;
+                    case 3:
+                        // function to delete an agent
+                        break;
+                    case 4:
+                        // list all agents
+                }
+                if(choice < 1 || choice > 4){
+                    System.out.print("\nFailed, enter the num between 1 and 4 >>  ");
+                }
+            }while (choice < 1 || choice >4);
+        }else {
+            System.out.println("Code n'est pas Valide !!!");
+        }
+
     }
 
     public void patientSession(){
