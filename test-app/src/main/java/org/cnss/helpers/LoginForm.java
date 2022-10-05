@@ -18,7 +18,7 @@ public class LoginForm {
     }
 
     public void displayForm(Sessions session){
-        System.out.println("\t|\tAuthentication\t|");
+        System.out.println("\t*\t\tAuthentication\t\t*");
         if(Objects.equals(session.getLoggedIn(), "PATIENT"))
             System.out.print("Enter Your Matricule >>  ");
         else System.out.print("Enter Your Email >>  ");

@@ -10,10 +10,8 @@ public class AgentsRepositoryImpl implements AgentRepository {
     private Agents agent ;
 
     @Override
-    public Agents saveAgent(Agents agent) {
-        if(agent.save()){
-            return agent;
-        }else return null;
+    public Boolean saveAgent(Agents agent) {
+        return agent.save();
     }
 
     @Override

@@ -17,30 +17,10 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("\t ##  WELCOME MACNSS APP  ##");
         app();
-        /*List<String> ns = Arrays.asList("Adam","Omar","Aymen","Sofia");
-        List<String> square = ns.stream().map(el -> "Hello\t"+el).collect(Collectors.toList());
-        System.out.println("enter the name >> ");
-        String name = in.nextLine();
-        System.out.println("enter the address >> ");
-        String address = in.next();
-        System.out.println("enter the age >> ");
-        int age = in.nextInt();
-
-        // create table in db
-        String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES (1, '"+ name +"', "+ age +", '"+ address +"', 20000.00 );";
-        if(cn.execute(sql)){
-            System.out.println("add success");
-        }*/
-        /*String sql = "SELECT * FROM patients";
-        ResultSet res = cn.resultSet(sql);
-
-        try {
-            while (res.next()){
-                System.out.println(res.getString("email"));
-            }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }*/
+//        Agents ag = new Agents();
+//        ArrayList<Agents> allAgents = ag.all();
+//        for (Agents e: allAgents){
+//            System.out.println(e.getEmail());
 //        }
     }
 
@@ -48,24 +28,17 @@ public class Main {
 //      AgentsRepositoryImpl agentRepo = new AgentsRepositoryImpl();
         System.out.println("Please choose your session");
         s.menuSession();
+
+        // display form login and make an instance for the user credentials
         form.displayForm(s);
         if(auth(form, s)){
             switch (s.getLoggedIn()) {
-                case "ADMIN" -> {
-                    s.adminSession();
-                    app();
-                }
-                case "AGENT" -> {
-                    s.agentSession();
-                    app();
-                }
-                case "PATIENT" -> {
-                    s.patientSession();
-                    app();
-                }
+                case "ADMIN" -> s.adminSession();
+                case "AGENT" -> s.agentSession();
+                case "PATIENT" -> s.patientSession();
             }
+            app();
         }else System.out.println(RED+"Failed, your email or password incorrect."+RESET);
-
     }
 
     public static boolean auth(LoginForm f, Sessions s){

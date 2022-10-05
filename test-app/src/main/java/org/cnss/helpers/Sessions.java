@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class Sessions {
     private final HashMap<Integer, String> allUsers = new HashMap<>() ;
     private String loggedIn;
+
+    // Forms
+    AgentForm form = new AgentForm();
     Scanner in = new Scanner(System.in);
 
     public Sessions() {
@@ -60,7 +63,9 @@ public class Sessions {
             choice = in.nextInt();
             switch (choice){
                 case 1:
-                    // function to add new agent
+                    if(form.addAgentForm())
+                        System.out.println("Add successfully");
+                    else System.out.println("Failed to add an agent");
                     break;
                 case 2:
                     // function to update an agent
@@ -69,7 +74,7 @@ public class Sessions {
                     // function to delete an agent
                     break;
                 case 4:
-                    // list all agents
+                    form.listAllAgent();
                     break;
                 case 5:
                     break;
