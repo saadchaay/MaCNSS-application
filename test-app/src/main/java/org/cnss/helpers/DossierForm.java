@@ -3,6 +3,8 @@ package org.cnss.helpers;
 import org.cnss.controllers.DossierRepositoryImp;
 import org.cnss.entities.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import static org.cnss.Main.RED;
@@ -34,8 +36,7 @@ public class DossierForm {
             int consType = in.nextInt();
             switch(consType){
                 case 1 -> {
-//                    consultation = new Consultations(do)
-                    addConsultation(dossier, 80.0);
+                    addConsultation(dossier, 120.0);
                     dossier.setMontantRem(80.0);
                 }
                 case 2 -> {
@@ -44,7 +45,6 @@ public class DossierForm {
                 }
             }
             // medicament
-
 //            }
         }else{
             System.out.println(RED+"Sorry there's no patient with this matricule!"+RESET);
@@ -56,11 +56,32 @@ public class DossierForm {
     public int generateCodeDossier(){
         return (int)(Math.random()*(99999-9999+1)+9999);
     }
-    public boolean addConsultation(Dossiers dossier,double price){
+    public void addConsultation(Dossiers dossier,double price){
         int idDossier = dossier.getDossierByCode(dossier.getCodeDossier());
-        System.out.println(idDossier);
-        return true;
-//        consultation = new Consultations()
+        consultation = new Consultations(idDossier, price);
+    }
+
+    public void addMedicals(Dossiers dossier){
+        HashMap<Integer, Double> medicals = new HashMap<>();
+        System.out.print("\nIs there any medicals ? 1- Yes\t 2-No >>\t");
+        int res = in.nextInt();
+        boolean status = true;
+        if(res == 1){
+            do {
+                System.out.print("Enter the medical code: ");
+                int codeBarre = in.nextInt();
+                System.out.print("Enter the price: ");
+                double price = in.nextDouble();
+                medicals.put(codeBarre, price);
+                System.out.print("\n Still any medical ? 1- Yes\t 2-No >>");
+                res = in.nextInt();
+                if(res == 2)
+                    status = false;
+            }while (status);
+        }
+        ArrayList<Medicaments> allMedicals = new ArrayList<>();
+
+        System.out.println(medicals);
     }
 
 
