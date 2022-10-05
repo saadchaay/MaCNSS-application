@@ -1,6 +1,8 @@
 package org.cnss.entities;
 
 import org.cnss.helpers.*;
+
+import java.sql.ResultSet;
 import java.time.LocalDate;
 
 public class Dossiers{
@@ -11,16 +13,18 @@ public class Dossiers{
     private String status;
     private Double montantRem;
 
+    Database db ;
     public Dossiers() {
+        db = new Database();
         EnumValues s1 = EnumValues.status.PENDING::toString;
         this.status = s1.setValue();
         this.montantRem = 0.00;
     }
 
-    public Dossiers(int codeDossier, int matriculePatient, LocalDate appliedDate) {
+    public Dossiers(int codeDossier, int matriculePatient) {
         this.codeDossier = codeDossier;
         this.matriculePatient = matriculePatient;
-        this.appliedDate = appliedDate;
+        this.appliedDate = LocalDate.now();
         EnumValues s1 = EnumValues.status.PENDING::toString;
         this.status = s1.setValue();
         this.montantRem = 0.00;
@@ -67,6 +71,30 @@ public class Dossiers{
             return EnumValues.status.valueOf(status.toUpperCase()).toString();
         };
         this.status = s1.setValue();
+    }
+
+    public boolean save(){
+        String sql = "INSERT INTO dossiers (codeDossier, matricule) VALUES " +
+                "("+ this.codeDossier +", "+ this.matriculePatient +");";
+        return db.execute(sql);
+    }
+
+    public int getDossierByCode(int code){
+        Dossiers newDossier;
+        String sql = "SELECT * FROM dossiers WHERE codedossier = "+code;
+        ResultSet res = db.resultSet(sql);
+        int id = 0;
+        try {
+            while (res.next()){
+                this.codeDossier = code;
+                this.status = res.getString("status");
+                this.montantRem = res.getDouble("montantrem");
+                id = res.getInt("id");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
     }
 
 

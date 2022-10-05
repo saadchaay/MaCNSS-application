@@ -12,7 +12,7 @@ public class Agents {
     private String role;
     private boolean verified;
 
-    private Database db;
+    Database db;
 
     //    *************************************************************** constructors *********************
     public Agents(){

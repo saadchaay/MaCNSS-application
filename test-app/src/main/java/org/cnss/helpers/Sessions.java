@@ -10,9 +10,9 @@ import static org.cnss.Main.*;
 public class Sessions {
     private final HashMap<Integer, String> allUsers = new HashMap<>() ;
     private String loggedIn;
-
     // Forms
     AgentForm form = new AgentForm();
+    DossierForm dossierForm = new DossierForm();
     Scanner in = new Scanner(System.in);
 
     public Sessions() {
@@ -106,7 +106,9 @@ public class Sessions {
             choice = in.nextInt();
             switch (choice){
                 case 1:
-                    // function to add new agent
+                    if(dossierForm.addDossierForm()){
+                        System.out.println(GREEN+"\n\tAdd dossier successfully."+RESET);
+                    }
                     break;
                 case 2:
                     // function to update an agent
