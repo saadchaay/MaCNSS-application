@@ -11,7 +11,7 @@ refPrice numeric(7,2) NOT NULL
 
 INSERT INTO refundableMedicals (codeBarre, refPrice) VALUES
 (6118000010050, 16.70),
-(6118001170388, 30.71),
+(6118001170388, 30.71), 
 (6118000130796, 26.30),
 (6118000260202, 120.17),
 (6118000260189, 53.33);
@@ -58,6 +58,13 @@ create table users
     role     role    default 'agent' not null,
     verified boolean default false
 );
+
+INSERT INTO users(email,password,role) VALUES
+("test@gmail.com","dsfsdfsdsdf","admin"),
+("agent2@gmail.com","dsfsdfsdsdf","agent"),
+("agent3@gmail.com","dsfsdfsdsdf","agent"),
+("agent5@gmail.com","dsfsdfsdsdf","agent"),
+("agent4@gmail.com","dsfsdfsdsdf","agent");
 
 CREATE TYPE statusType as ENUM ('PENDING', 'REFUSED', 'VALIDATED');
 

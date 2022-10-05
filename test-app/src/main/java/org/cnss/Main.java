@@ -1,5 +1,7 @@
 package org.cnss;
+
 import org.cnss.controllers.AgentsRepositoryImpl;
+
 import org.cnss.entities.*;
 import org.cnss.helpers.Database;
 import org.cnss.helpers.LoginForm;
@@ -15,6 +17,7 @@ public class Main {
     static Sessions s = new Sessions();
     static LoginForm form = new LoginForm();
     public static void main(String[] args) {
+
         System.out.println("\t ##  WELCOME MACNSS APP  ##");
         app();
 //        Agents ag = new Agents();
@@ -22,6 +25,7 @@ public class Main {
 //        for (Agents e: allAgents){
 //            System.out.println(e.getEmail());
 //        }
+
     }
 
     public static void app(){

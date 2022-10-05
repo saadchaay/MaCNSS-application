@@ -79,6 +79,7 @@ public class Sessions {
                 case 5:
                     break;
             }
+
             if(choice < 1 || choice > 5){
                 System.out.print("\nFailed, enter the num between 1 and 5 >>  ");
             }
