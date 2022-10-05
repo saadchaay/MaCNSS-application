@@ -26,7 +26,7 @@ public class Sessions {
                     this.current_session.put(3,"Patient");
                     break;
             }
-        }while (choice < 1 || choice >3);
+        }while (choice < 1 || choice >3 );
 
     }
 }

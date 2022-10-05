@@ -1,4 +1,5 @@
 package org.cnss;
+import org.cnss.controllers.Authentification;
 import org.cnss.entities.*;
 import org.cnss.helpers.Database;
 import org.cnss.helpers.Sessions;
@@ -8,36 +9,44 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Database cn = new Database();
-        Scanner in = new Scanner(System.in);
+        //test
+        String role;
 
-        Sessions s = new Sessions();
-        s.menuSession();
-        /*List<String> ns = Arrays.asList("Adam","Omar","Aymen","Sofia");
-        List<String> square = ns.stream().map(el -> "Hello\t"+el).collect(Collectors.toList());
-        System.out.println("enter the name >> ");
-        String name = in.nextLine();
-        System.out.println("enter the address >> ");
-        String address = in.next();
-        System.out.println("enter the age >> ");
-        int age = in.nextInt();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter Your Email :");
 
-        // create table in db
-        String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES (1, '"+ name +"', "+ age +", '"+ address +"', 20000.00 );";
-        if(cn.execute(sql)){
-            System.out.println("add success");
-        }*/
-        /*String sql = "SELECT * FROM patients";
-        ResultSet res = cn.resultSet(sql);
+        String email = scan.nextLine();
+        System.out.println("Enter Your Password : ");
 
-        try {
-            while (res.next()){
-                System.out.println(res.getString("email"));
-            }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }*/
+        String password = scan.nextLine();
+        Agents agent = new Agents(email,password,false);
+        agent.save();
+
+        System.out.println("1) admin \n2) agents");
+        int choice  = scan.nextInt();
+        switch (choice){
+            case 1:
+                role = "admin";
+                break;
+            default:
+                role = "agent";
+                break;
+        }
+        Authentification auth = new Authentification(email,password,role);
+        System.out.println(auth);
+        if(auth.getAuth()){
+            System.out.println("Hello You are :"+email+" / Your Role is : "+role);
+        }else {
+            System.out.println("there is No Agent Or Admin");
+        }
+
+//        Agents agent = new Agents();
+//        ArrayList<Agents> listeAgent = agent.all();
+//        for (Agents a:listeAgent
+//             ) {
+//            System.out.println(a.getEmail());
 //        }
+
 
     }
 
