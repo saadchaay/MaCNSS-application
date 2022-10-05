@@ -1,54 +1,52 @@
 package org.cnss;
-import org.cnss.controllers.Authentification;
+
+import org.cnss.controllers.AgentsRepositoryImpl;
+
 import org.cnss.entities.*;
 import org.cnss.helpers.Database;
+import org.cnss.helpers.LoginForm;
 import org.cnss.helpers.Sessions;
 
 import java.sql.ResultSet;
 import java.util.*;
 
 public class Main {
+    public static final String RESET = "\033[0m";  // Text Reset
+    public static final String RED = "\033[0;31m";     // RED
+    public static final String GREEN = "\033[0;32m";   // GREEN
+    static Sessions s = new Sessions();
+    static LoginForm form = new LoginForm();
     public static void main(String[] args) {
-        //test
-        String role;
 
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter Your Email :");
-
-        String email = scan.nextLine();
-        System.out.println("Enter Your Password : ");
-
-        String password = scan.nextLine();
-        Agents agent = new Agents(email,password,false);
-        agent.save();
-
-        System.out.println("1) admin \n2) agents");
-        int choice  = scan.nextInt();
-        switch (choice){
-            case 1:
-                role = "admin";
-                break;
-            default:
-                role = "agent";
-                break;
-        }
-        Authentification auth = new Authentification(email,password,role);
-        System.out.println(auth);
-        if(auth.getAuth()){
-            System.out.println("Hello You are :"+email+" / Your Role is : "+role);
-        }else {
-            System.out.println("there is No Agent Or Admin");
-        }
-
-//        Agents agent = new Agents();
-//        ArrayList<Agents> listeAgent = agent.all();
-//        for (Agents a:listeAgent
-//             ) {
-//            System.out.println(a.getEmail());
+        System.out.println("\t ##  WELCOME MACNSS APP  ##");
+        app();
+//        Agents ag = new Agents();
+//        ArrayList<Agents> allAgents = ag.all();
+//        for (Agents e: allAgents){
+//            System.out.println(e.getEmail());
 //        }
-
 
     }
 
+    public static void app(){
+//      AgentsRepositoryImpl agentRepo = new AgentsRepositoryImpl();
+        System.out.println("Please choose your session");
+        s.menuSession();
+
+        // display form login and make an instance for the user credentials
+        form.displayForm(s);
+        if(auth(form, s)){
+            switch (s.getLoggedIn()) {
+                case "ADMIN" -> s.adminSession();
+                case "AGENT" -> s.agentSession();
+                case "PATIENT" -> s.patientSession();
+            }
+            app();
+        }else System.out.println(RED+"Failed, your email or password incorrect."+RESET);
+    }
+
+    public static boolean auth(LoginForm f, Sessions s){
+        return true;
+    }
 
 }

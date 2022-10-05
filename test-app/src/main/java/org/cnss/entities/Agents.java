@@ -55,10 +55,8 @@ public class Agents {
 
     public Boolean save(){
         String sql = "INSERT INTO users (email, password, verified) VALUES " +
-                "("+ this.email +"', "+ this.password +", true );";
-        if(db.execute(sql))
-            return true;
-        else return false;
+                "('"+ this.email +"', '"+ this.password +"', true );";
+        return db.execute(sql);
     }
 
     public Agents show(int id){
@@ -81,14 +79,17 @@ public class Agents {
 
     public ArrayList<Agents> all(){
         ArrayList<Agents> agents = new ArrayList<>();
+
 //        if(db.execute("SELECT * FROM users WHERE role !='admin'")){
             ResultSet res = db.resultSet("SELECT * FROM users WHERE role !='admin'");
+
             try{
                 while ( res.next() ){
                     this.email = res.getString("email");
                     this.password = res.getString("password");
                     this.role = res.getString("role");
                     this.verified = res.getBoolean("verified");
+                    System.out.println(email);
                     agents.add(this);
                 }
             }catch (Exception e){
