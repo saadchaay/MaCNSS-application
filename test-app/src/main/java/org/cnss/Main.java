@@ -32,7 +32,6 @@ public class Main {
 //      AgentsRepositoryImpl agentRepo = new AgentsRepositoryImpl();
         System.out.println("Please choose your session");
         s.menuSession();
-
         // display form login and make an instance for the user credentials
         form.displayForm(s);
         if(auth(form, s)){
