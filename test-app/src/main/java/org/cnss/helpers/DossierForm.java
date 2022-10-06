@@ -3,10 +3,8 @@ package org.cnss.helpers;
 import org.cnss.controllers.DossierRepositoryImp;
 import org.cnss.entities.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import static org.cnss.Main.RED;
 import static org.cnss.Main.RESET;
@@ -20,7 +18,9 @@ public class DossierForm {
     Patient patient = new Patient();
 
     private final Scanner in = new Scanner(System.in);
-
+    String RADIO = EnumValues.documentType.RADIO.toString();
+    String SCANNER = EnumValues.documentType.SCANNER.toString();
+    String ANALYSE = EnumValues.documentType.ANALYSE.toString();
 
     public boolean addDossierForm(){
         Dossiers dossier = new Dossiers();
@@ -33,7 +33,6 @@ public class DossierForm {
             dossier.setCodeDossier(newCodeDossier);
             dossier.setMatriculePatient(mat);
             dossierImplementation = new DossierRepositoryImp(dossier);
-//            if(dossierImplementation.saveDossier(dossier)){
             System.out.println("Consultation Type: 1- Generalist\t\t 2-Specialist");
             System.out.print("Which type >>\t");
             int consType = in.nextInt();
@@ -47,18 +46,13 @@ public class DossierForm {
                     dossier.setMontantRem(120.0);
                 }
             }
-            // medicament
+            // add all medications ......
             addMedicals(dossier);
-
             // add all documents ...
             addDocuments(dossier);
-            for (Documents one: documents){
-                dossier.setMontantRem(one.getPrice()+dossier.getMontantRem());
-            }
-            if(dossierImplementation.saveDossier(dossier)){
-                // calcule function;
-                System.out.println("All montant: "+dossier.getMontantRem());
-            }
+            // calculate refund total price function;
+            dossier.setMontantRem(dossier.getMontantRem()+calculateRemDocs()+calculateRemMed());
+            dossierImplementation.saveDossier(dossier);
         }else{
             System.out.println(RED+"Sorry there's no patient with this matricule!"+RESET);
             addDossierForm();
@@ -104,9 +98,6 @@ public class DossierForm {
 
     public void addDocuments(Dossiers dossier) {
         HashMap<String, ArrayList<Documents>> documents = new HashMap<>();
-        String RADIO = EnumValues.documentType.RADIO.toString();
-        String SCANNER = EnumValues.documentType.SCANNER.toString();
-        String ANALYSE = EnumValues.documentType.ANALYSE.toString();
         ArrayList<String> menuDocs = new ArrayList<>();
         menuDocs.add(RADIO);
         menuDocs.add(SCANNER);
@@ -225,11 +216,30 @@ public class DossierForm {
         return  dossier.getDossierByCode(dossier.getCodeDossier());
     }
 
-    public void calculeRemDocs(){
+    public double calculateRemDocs(){
         Documents d = new Documents();
+        double total = 0.00;
         HashMap<String, Double> refundableDocs = d.getAllRefundable();
-        for (Map.Entry<String, Double> doc: refundableDocs.entrySet()){
-            System.out.println("Type: "+doc.getKey());
+        for(Documents doc: documents){
+            switch (doc.getType()){
+                case "RADIO" -> total+= doc.getPrice()*(refundableDocs.get(RADIO)/100);
+                case "SCANNER" -> total+= doc.getPrice()*(refundableDocs.get(SCANNER)/100);
+                case "ANALYSE" -> total+= doc.getPrice()*(refundableDocs.get(ANALYSE)/100);
+            }
         }
+        return total;
+    }
+
+    public double calculateRemMed(){
+        Medicaments m = new Medicaments();
+        double total = 0.00;
+        HashMap<String, Double> refundableMeds = m.getAllRefundable();
+        System.out.println(refundableMeds);
+        for(Medicaments med: medications){
+            for (Map.Entry<String, Double> refMeds: refundableMeds.entrySet())
+                if(Objects.equals(med.getCodeBarre(), refMeds.getKey()))
+                    total+=refMeds.getValue();
+        }
+        return total;
     }
 }

@@ -74,8 +74,8 @@ public class Dossiers{
     }
 
     public boolean save(){
-        String sql = "INSERT INTO dossiers (codeDossier, matricule) VALUES " +
-                "("+ this.codeDossier +", "+ this.matriculePatient +");";
+        String sql = "INSERT INTO dossiers (codeDossier, matricule, montantrem) VALUES " +
+                "("+ this.codeDossier +", "+ this.matriculePatient +","+ this.getMontantRem()+");";
         return db.execute(sql);
     }
 
