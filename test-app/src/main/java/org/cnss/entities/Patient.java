@@ -138,12 +138,12 @@ public class Patient {
 
     public boolean ifPatient(String  matricule,String password){
       ArrayList<Patient> listPatient = all();
-        System.out.println(matricule);
-        System.out.println(password);
+//        System.out.println(matricule);
+//        System.out.println(password);
         for (Patient p:listPatient) {
 //            System.out.println(p.toString());
-            System.out.println(String.valueOf(p.getMatricule()));
-            System.out.println(p.getPassword());
+//            System.out.println(String.valueOf(p.getMatricule()));
+//            System.out.println(p.getPassword());
             if(String.valueOf(p.getMatricule()).equals(matricule) && p.getPassword().equals(password)){
                 return true;
             }

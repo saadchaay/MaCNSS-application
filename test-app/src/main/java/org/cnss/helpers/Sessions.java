@@ -1,5 +1,7 @@
 package org.cnss.helpers;
 
+import org.cnss.entities.Dossiers;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -135,7 +137,7 @@ public class Sessions {
         }
     }
 
-    public void patientSession(){
+    public void patientSession(String matricule){
         System.out.println("\t Patient Dashboard: ");
         System.out.println("1: Check all dossiers;");
         System.out.println("2: LogOut;");
@@ -144,7 +146,10 @@ public class Sessions {
             choice = in.nextInt();
             switch (choice){
                 case 1:
-                    // function to add new agent
+                    Dossiers d = new Dossiers();
+//                    System.out.println(matricule);
+                    d.ShowMyDossier(matricule);
+                    patientSession(matricule);
                     break;
                 case 2:
                     loggedOut();
@@ -156,6 +161,7 @@ public class Sessions {
                 System.out.print("\nFailed, enter the num between 1 and 2 >>  ");
             }
         }while (choice < 1 || choice >2);
+
     }
 
     public boolean loggedOut(){

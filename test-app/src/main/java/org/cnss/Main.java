@@ -29,7 +29,8 @@ public class Main {
     public static void main(String[] args) {
         //Maij function
         System.out.println("***************************** MaCnss-Application *****************************");
-
+    Dossiers d = new Dossiers();
+//    d.ShowMyDossier();
         app();
 
     }
@@ -49,7 +50,7 @@ public class Main {
 
                 case "ADMIN" -> s.adminSession();
                 case "AGENT" -> s.agentSession(senMail.sendMail(form.getCredentials()));
-                case "PATIENT" -> s.patientSession();
+                case "PATIENT" -> s.patientSession(form.getCredentials());
 
             }
 
