@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class SendMail {
-    public SendMail(){}
-    public String sendMail(String email){
+    public SendMail() {
+    }
+
+    public String sendMail(String email) {
         Courier.init("pk_prod_Q02ESMDGP3MRBNMWTZ3Q1XN0A244");
         SendEnhancedRequestBody sendEnhancedRequestBody = new SendEnhancedRequestBody();
         SendRequestMessage sendRequestMessage = new SendRequestMessage();
@@ -24,7 +26,7 @@ public class SendMail {
         HashMap<String, String> content = new HashMap<String, String>();
         content.put("title", "CLe d'entrer : Nouveau Cle");
         int idOne = Math.abs(UUID.randomUUID().hashCode());
-        content.put("body", "Code :"+ idOne);
+        content.put("body", "Code :" + idOne);
         sendRequestMessage.setContent(content);
 
         HashMap<String, Object> data = new HashMap<String, Object>();
@@ -40,3 +42,4 @@ public class SendMail {
         return String.valueOf(idOne);
     }
 }
+

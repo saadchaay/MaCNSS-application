@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 public class AgentsRepositoryImpl implements AgentRepository {
 
-    private Agents agent ;
+    private final Agents agent ;
+
+    public AgentsRepositoryImpl(Agents agent) {
+        this.agent = agent;
+    }
 
     @Override
     public Boolean saveAgent(Agents agent) {
@@ -21,7 +25,7 @@ public class AgentsRepositoryImpl implements AgentRepository {
 
     @Override
     public ArrayList<Agents> getAllAgents() {
-        return agent.all();
+        return this.agent.all();
     }
 
     @Override
