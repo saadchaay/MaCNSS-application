@@ -1,13 +1,17 @@
 package org.cnss.entities;
 
+import org.cnss.helpers.Database;
+
 public class Papiers {
 
     private int dossierID;
     private double price;
 
-    public Papiers() {}
+    Database db;
+    public Papiers() { db = new Database(); }
 
     public Papiers(int dossierID, double price) {
+        db = new Database();
         this.dossierID = dossierID;
         this.price = price;
     }
