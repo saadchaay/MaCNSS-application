@@ -4,6 +4,7 @@ import org.cnss.helpers.*;
 
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Dossiers{
     private int codeDossier;
@@ -74,8 +75,8 @@ public class Dossiers{
     }
 
     public boolean save(){
-        String sql = "INSERT INTO dossiers (codeDossier, matricule) VALUES " +
-                "("+ this.codeDossier +", "+ this.matriculePatient +");";
+        String sql = "INSERT INTO dossiers (codeDossier, matricule, montantrem) VALUES " +
+                "("+ this.codeDossier +", "+ this.matriculePatient +","+ this.getMontantRem()+");";
         return db.execute(sql);
     }
 
@@ -95,6 +96,24 @@ public class Dossiers{
             System.out.println(e.getMessage());
         }
         return id;
+    }
+
+//    Show Dossier function
+    public void ShowMyDossier(String matricule){
+        ArrayList<Dossiers> listDossier = new ArrayList<>();
+        String sql = "SELECT * FROM dossiers WHERE matricule = "+matricule;
+        ResultSet res = db.resultSet(sql);
+        try {
+           while (res.next()){
+               System.out.println("********-_ Dossier "+res.getInt("codeDossier")+" _-********");
+               System.out.println("Statut : "+res.getString("status"));
+               System.out.println("Price  : "+res.getInt("montantRem"));
+           }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+//        return listDossier;
+
     }
 
 

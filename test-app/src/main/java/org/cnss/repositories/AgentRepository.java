@@ -9,4 +9,5 @@ public interface AgentRepository {
     Boolean saveAgent(Agents agent);
     ArrayList<Agents> getAllAgents();
     Boolean deleteAgent(int id);
+
 }

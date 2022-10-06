@@ -31,4 +31,13 @@ public class Papiers {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Papiers{" +
+                "dossierID=" + dossierID +
+                ", price=" + price +
+                ", db=" + db +
+                '}';
+    }
 }

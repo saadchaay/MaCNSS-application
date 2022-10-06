@@ -1,5 +1,7 @@
 package org.cnss.helpers;
 
+import org.cnss.entities.Dossiers;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -96,64 +98,56 @@ public class Sessions {
         }
     }
 
-    public void agentSession(String codeVerif){
-        Scanner sc = new Scanner(System.in);
-        /*System.out.println("Code de Verification : ");
-        String codeEntrer = sc.nextLine();*/
-//        if(codeVerif.equals(codeEntrer)){
-            System.out.println("\n\t Agent Dashboard: ");
-            System.out.println("1: Add new Dossier for a patient;");
-            System.out.println("2: Manage Dossiers;");
-            System.out.println("3: LogOut;");
-            int choice;
-            do {
-                choice = in.nextInt();
-                switch (choice){
-                    case 1:
-                        if(dossierForm.addDossierForm()){
-                            System.out.println(GREEN+"\n\tAdd dossier successfully."+RESET);
-                        }
-                        break;
-                    case 2:
-                        // function to update an agent
-                        break;
-                    case 3:
-                        break;
-                }
-                if(choice < 1 || choice > 3){
-                    System.out.print("\nFailed, enter the num between 1 and 3 >>  ");
-                }
-            }while (choice < 1 || choice > 3);
-       /* }
-        else{
-            System.out.println(RED+"The code in  incorrect"+RESET);
-        }*/
-    }
-
-    public void patientSession(){
-        System.out.println("\t Admin Dashboard: ");
-        System.out.println("1: Check all dossiers;");
-        System.out.println("2: LogOut;");
+    public void agentSession(){
+        System.out.println("\n\t Agent Dashboard: ");
+        System.out.println("1: Add new Dossier for a patient;");
+        System.out.println("2: Manage Dossiers;");
+        System.out.println("3: LogOut;");
         int choice;
         do {
             choice = in.nextInt();
             switch (choice){
                 case 1:
-                    // function to add new agent
+                    if(dossierForm.addDossierForm()){
+                        System.out.println(GREEN+"\nAdd dossier successfully."+RESET);
+                    }
+                    agentSession();
                     break;
                 case 2:
                     // function to update an agent
                     break;
                 case 3:
-                    // function to delete an agent
+
                     break;
-                case 4:
-                    // list all agents
             }
-            if(choice < 1 || choice > 4){
-                System.out.print("\nFailed, enter the num between 1 and 4 >>  ");
+            if(choice < 1 || choice > 3){
+                System.out.print("\nFailed, enter the num between 1 and 3 >>  ");
             }
-        }while (choice < 1 || choice >4);
+        }while (choice < 1 || choice > 3);
+    }
+
+    public void patientSession(String matricule){
+        System.out.println("\t Patient Dashboard: ");
+        System.out.println("1: Check all dossiers;");
+        System.out.println("2: LogOut;");
+        int choice;
+        do {
+            choice = in.nextInt();
+            switch (choice) {
+                case 1 -> {
+                    Dossiers d = new Dossiers();
+                    d.ShowMyDossier(matricule);
+                    patientSession(matricule);
+                }
+                case 2 -> loggedOut();
+                default -> {
+                }
+            }
+            if(choice < 1 || choice > 2){
+                System.out.print("\nFailed, enter the num between 1 and 2 >>  ");
+            }
+        }while (choice < 1 || choice >2);
+
     }
 
     public boolean loggedOut(){

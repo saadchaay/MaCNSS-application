@@ -16,6 +16,8 @@ import services.SendService;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLOutput;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Main {
@@ -26,31 +28,55 @@ public class Main {
     static Sessions s = new Sessions();
     static LoginForm form = new LoginForm();
     public static void main(String[] args) {
+        //Maij function
+        System.out.println("***************************** MaCnss-Application *****************************");
+    Dossiers d = new Dossiers();
+//    d.ShowMyDossier();
         app();
+
     }
 
     public static void app(){
+        Scanner sc = new Scanner(System.in);
         SendMail senMail = new SendMail() ;
-//      AgentsRepositoryImpl agentRepo = new AgentsRepositoryImpl();
-        System.out.println("Please choose your session");
+        System.out.println("\nPlease choose your session");
         s.menuSession();
-        // display form login and make an instance for the user credentials
-        s.agentSession("34773");
         form.displayForm(s);
-       /* Authentification auth = new Authentification(form.getCredentials(),form.getPassword(),s.getLoggedIn());
+        Authentification auth = new Authentification(form.getCredentials(),form.getPassword(),s.getLoggedIn());
         if(auth.getAuth()){
             switch (s.getLoggedIn()) {
                 case "ADMIN" -> s.adminSession();
-                case "AGENT" -> s.agentSession(senMail.sendMail(form.getCredentials()));
-                case "PATIENT" -> s.patientSession();
+                case "AGENT" -> {
+                    LocalTime sentCodeTiming = LocalTime.now();
+                    String codeEntrer;
+                    String codeSent = senMail.sendMail(form.getCredentials());
+                    System.out.println("Code de Verification : ");
+                    do {
+                        codeEntrer = sc.nextLine();
+                        if(!Objects.equals(codeSent, codeEntrer)) {
+                            System.out.println(RED + "The code is incorrect" + RESET);
+                            System.out.print("\nTry again (Enter '0' to cancel) >>  ");
+                        }else {
+                            if(checkFiveMinutes(sentCodeTiming)) {
+                                System.out.println(RED + "The code is expired, Try to enter the new code >> " + RESET);
+                                codeSent = senMail.sendMail(form.getCredentials());
+                                sentCodeTiming = LocalTime.now();
+                            }
+                            else s.agentSession();
+                        }
+                    }while (!Objects.equals(codeSent, codeEntrer) && !Objects.equals("0", codeEntrer));
+                }
+                case "PATIENT" -> s.patientSession(form.getCredentials());
+
             }
 
         }else System.out.println(RED+"Failed, your email or password incorrect."+RESET);
-        */app();
+    app();
     }
 
-    public static boolean auth(LoginForm f, Sessions s){
-        return true;
+    public static boolean checkFiveMinutes(LocalTime time){
+        LocalTime now = LocalTime.now();
+        return now.compareTo(time.plusSeconds(20)) > 0;
     }
 
 

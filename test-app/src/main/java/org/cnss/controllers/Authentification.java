@@ -10,14 +10,19 @@ public class Authentification {
     private Database db;
     private boolean auth;
     private Agents agents = new Agents();
+    private Patient patients = new Patient();
 
-    public Authentification(String email,String password,String grade){
+    public Authentification(String login,String password,String grade){
         switch (grade){
             case "ADMIN":
-                this.auth = agents.ifAdminExist(email,password);
+                this.auth = agents.ifAdminExist(login,password);
+                break;
+            case "AGENT":
+                this.auth = agents.ifExist(login,password);
                 break;
             default:
-                this.auth = agents.ifExist(email,password);
+
+                this.auth = patients.ifPatient(login,password);
                 break;
         }
     }

@@ -22,8 +22,8 @@ public class LoginForm {
         if(Objects.equals(session.getLoggedIn(), "PATIENT"))
             System.out.print("Enter Your Matricule >>  ");
         else System.out.print("Enter Your Email >>  ");
-        this.credentials = in.next();
-        System.out.print("Enter Your Password >>  ");
-        this.password = in.next();
+            this.credentials = in.next();
+            System.out.print("Enter Your Password >>  ");
+            this.password = in.next();
     }
 }
