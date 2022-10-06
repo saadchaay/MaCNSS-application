@@ -234,7 +234,6 @@ public class DossierForm {
         Medicaments m = new Medicaments();
         double total = 0.00;
         HashMap<String, Double> refundableMeds = m.getAllRefundable();
-        System.out.println(refundableMeds);
         for(Medicaments med: medications){
             for (Map.Entry<String, Double> refMeds: refundableMeds.entrySet())
                 if(Objects.equals(med.getCodeBarre(), refMeds.getKey()))
