@@ -9,6 +9,7 @@ public class Authentification {
     private String password;
     private Database db;
     private boolean auth;
+
     private Agents agents = new Agents();
     private Patient patients = new Patient();
 

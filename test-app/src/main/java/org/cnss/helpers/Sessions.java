@@ -2,6 +2,7 @@ package org.cnss.helpers;
 
 import org.cnss.entities.Dossiers;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -99,11 +100,13 @@ public class Sessions {
     }
 
     public void agentSession(String codeVerif){
+//        Plus 5minute
+        LocalDateTime time1 = LocalDateTime.now().plusMinutes(5);
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Code de Verification : ");
         String codeEntrer = sc.nextLine();
-        if(codeVerif.equals(codeEntrer)){
+        if(codeVerif.equals(codeEntrer) && LocalDateTime.now().compareTo(time1)<0){
             System.out.println("\n\t Agent Dashboard: ");
             System.out.println("1: Add new Dossier for a patient;");
             System.out.println("2: Manage Dossiers;");
