@@ -16,6 +16,7 @@ import services.SendService;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Main {
@@ -26,7 +27,12 @@ public class Main {
     static Sessions s = new Sessions();
     static LoginForm form = new LoginForm();
     public static void main(String[] args) {
+        //Maij function
+        System.out.println("***************************** MaCnss-Application *****************************");
+    Dossiers d = new Dossiers();
+//    d.ShowMyDossier();
         app();
+
     }
 
     public static void app(){
@@ -35,18 +41,21 @@ public class Main {
         System.out.println("Please choose your session");
         s.menuSession();
         // display form login and make an instance for the user credentials
-        s.agentSession("34773");
+//        s.agentSession("34773");
         form.displayForm(s);
-       /* Authentification auth = new Authentification(form.getCredentials(),form.getPassword(),s.getLoggedIn());
+     Authentification auth = new Authentification(form.getCredentials(),form.getPassword(),s.getLoggedIn());
+//        System.out.println(auth.getAuth());
         if(auth.getAuth()){
             switch (s.getLoggedIn()) {
+
                 case "ADMIN" -> s.adminSession();
                 case "AGENT" -> s.agentSession(senMail.sendMail(form.getCredentials()));
-                case "PATIENT" -> s.patientSession();
+                case "PATIENT" -> s.patientSession(form.getCredentials());
+
             }
 
         }else System.out.println(RED+"Failed, your email or password incorrect."+RESET);
-        */app();
+    app();
     }
 
     public static boolean auth(LoginForm f, Sessions s){
