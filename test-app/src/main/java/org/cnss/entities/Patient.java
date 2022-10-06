@@ -4,6 +4,7 @@ import org.cnss.helpers.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Patient {
     private int ID;
@@ -12,9 +13,12 @@ public class Patient {
     private String lastName;
     private String email;
 
+    private String password;
+
     Database db;
 
-//    *************************************************************** constructors *********************
+
+    //    *************************************************************** constructors *********************
     public Patient(){ db = new Database();}
     public Patient(int id, int matricule, String firstName, String lastName, String email) {
         this.ID = id;
@@ -25,23 +29,43 @@ public class Patient {
         this.db = new Database();
     }
 
+    public Patient(int matricule, String password) {
+
+        this.matricule = matricule;
+        this.password = password;
+        this.db = new Database();
+    }
+
+    public Patient(int id, int matricule, String firstName, String lastName, String email, String password) {
+        db = new Database();
+        this.ID = ID;
+        this.matricule = matricule;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.db = db;
+    }
+
 
     //    *************************************************************** getters *********************
     public int getMatricule() {
-        return matricule;
+        return this.matricule;
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
+
+    public String getPassword(){return this.password;}
 
 
     //    *************************************************************** setters *********************
@@ -87,5 +111,43 @@ public class Patient {
             System.out.println(e.getMessage());
         }
         return email != null;
+    }
+
+    //get all Patients
+    public ArrayList<Patient> all(){
+        ArrayList<Patient> patients = new ArrayList<>();
+        ResultSet res = db.resultSet("SELECT * FROM patients");
+        try{
+            while ( res.next() ){
+                this.ID = res.getInt("id");
+                this.matricule = res.getInt("matricule");
+                this.firstName = res.getString("firstname");
+                this.lastName = res.getString("lastname");
+                this.password = res.getString("password");
+                this.email = res.getString("email");
+                Patient newPatient = new Patient(this.ID,this.matricule,this.firstName,this.lastName,this.email,this.password);
+                patients.add(newPatient);
+
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return patients;
+    }
+
+    public boolean ifPatient(String  matricule,String password){
+      ArrayList<Patient> listPatient = all();
+        System.out.println(matricule);
+        System.out.println(password);
+        for (Patient p:listPatient) {
+//            System.out.println(p.toString());
+            System.out.println(String.valueOf(p.getMatricule()));
+            System.out.println(p.getPassword());
+            if(String.valueOf(p.getMatricule()).equals(matricule) && p.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
     }
 }

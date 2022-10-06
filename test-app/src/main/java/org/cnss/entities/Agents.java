@@ -103,7 +103,7 @@ public class Agents {
                 this.role = res.getString("role");
                 this.verified = res.getBoolean("verified");
 
-                Agents newAgent = new Agents(ID, email, password, role, verified);
+                Agents newAgent = new Agents(this.ID, this.email, this.password, this.role, this.verified);
                 agents.add(newAgent);
 
             }
