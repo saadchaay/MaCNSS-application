@@ -26,24 +26,7 @@ public class Main {
     static Sessions s = new Sessions();
     static LoginForm form = new LoginForm();
     public static void main(String[] args) {
-//        Scanner scan = new Scanner(System.in);
-//        System.out.println("\t ##  WELCOME MACNSS APP  ##");
-////        app();
-//        Agents agent = new Agents();
-//        System.out.println("enter your email : ");
-//        String email = scan.nextLine();
-//        System.out.println("enter Your password ");
-//        String password = scan.nextLine();
-//        Authentification auth = new Authentification(email,password,"ADMIN");
-//        if(auth.getAuth()){
-//            System.out.println("Hello Admin : "+email);
-//        }else{
-//            System.out.println("You email Or password Not Correct !!!");
-//        }
-
-//        ***************************************************************
         app();
-
     }
 
     public static void app(){
@@ -52,8 +35,9 @@ public class Main {
         System.out.println("Please choose your session");
         s.menuSession();
         // display form login and make an instance for the user credentials
+        s.agentSession("34773");
         form.displayForm(s);
-        Authentification auth = new Authentification(form.getCredentials(),form.getPassword(),s.getLoggedIn());
+       /* Authentification auth = new Authentification(form.getCredentials(),form.getPassword(),s.getLoggedIn());
         if(auth.getAuth()){
             switch (s.getLoggedIn()) {
                 case "ADMIN" -> s.adminSession();
@@ -62,7 +46,7 @@ public class Main {
             }
 
         }else System.out.println(RED+"Failed, your email or password incorrect."+RESET);
-        app();
+        */app();
     }
 
     public static boolean auth(LoginForm f, Sessions s){

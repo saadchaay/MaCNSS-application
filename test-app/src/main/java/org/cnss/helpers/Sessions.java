@@ -98,9 +98,9 @@ public class Sessions {
 
     public void agentSession(String codeVerif){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Code de Verification : ");
-        String codeEntrer = sc.nextLine();
-        if(codeVerif.equals(codeEntrer)){
+        /*System.out.println("Code de Verification : ");
+        String codeEntrer = sc.nextLine();*/
+//        if(codeVerif.equals(codeEntrer)){
             System.out.println("\n\t Agent Dashboard: ");
             System.out.println("1: Add new Dossier for a patient;");
             System.out.println("2: Manage Dossiers;");
@@ -124,9 +124,10 @@ public class Sessions {
                     System.out.print("\nFailed, enter the num between 1 and 3 >>  ");
                 }
             }while (choice < 1 || choice > 3);
-        }else{
+       /* }
+        else{
             System.out.println(RED+"The code in  incorrect"+RESET);
-        }
+        }*/
     }
 
     public void patientSession(){

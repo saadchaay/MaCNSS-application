@@ -1,23 +1,44 @@
 package org.cnss.entities;
 
+import com.sun.source.tree.InstanceOfTree;
+import org.cnss.helpers.Database;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Medicaments extends Papiers{
 
-    private int codeBarre;
+    private String codeBarre;
 
-    public Medicaments(int codeBarre) {
+    public Medicaments(String codeBarre) {
         this.codeBarre = codeBarre;
     }
 
-    public Medicaments(int dossierID, double price, int codeBarre) {
+    public Medicaments(int dossierID, double price, String codeBarre) {
         super(dossierID, price);
         this.codeBarre = codeBarre;
     }
 
-    public int getCodeBarre() {
+    public Medicaments() {}
+
+    public String getCodeBarre() {
         return codeBarre;
     }
 
-    public void setCodeBarre(int codeBarre) {
+    public void setCodeBarre(String codeBarre) {
         this.codeBarre = codeBarre;
+    }
+
+    public boolean checkRemMedicament(String codeBarre) {
+        String sql = "SELECT * FROM refundablemedicals WHERE codebarre = '"+codeBarre+"';" ;
+        try {
+            ResultSet res = db.resultSet(sql);
+            while (res.next()){
+                return res.getString("codeBarre") != null;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }
