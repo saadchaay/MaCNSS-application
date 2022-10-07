@@ -1,9 +1,11 @@
 package org.cnss.helpers;
 
 import org.cnss.entities.Dossiers;
+import org.cnss.entities.Patient;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static org.cnss.Main.*;
@@ -16,6 +18,9 @@ public class Sessions {
     AgentForm form = new AgentForm();
     DossierForm dossierForm = new DossierForm();
     Scanner in = new Scanner(System.in);
+    String ACCEPTED = EnumValues.status.ACCEPTED.toString();
+    String REFUSED = EnumValues.status.REFUSED.toString();
+    String PENDING = EnumValues.status.PENDING.toString();
 
     public Sessions() {
         EnumValues admin = EnumValues.users.ADMIN::toString;
@@ -99,6 +104,8 @@ public class Sessions {
     }
 
     public void agentSession(){
+        SendMail mailMessage = new SendMail();
+        Patient patient = new Patient();
         System.out.println("\n\t Agent Dashboard: ");
         System.out.println("1: Add new Dossier for a patient;");
         System.out.println("2: Manage Dossiers;");
@@ -114,10 +121,38 @@ public class Sessions {
                     agentSession();
                     break;
                 case 2:
-                    // function to update an agent
+                    dossierForm.manageDossier();
+                    System.out.print("\nChoose the dossier that you want to manage >> ");
+                    int idDossier = in.nextInt();
+                    int matricule = dossierForm.dossierImplementation.getMatricule(idDossier);
+                    String email = patient.getPatientByNumber(matricule);
+                    System.out.print("Manage this dossier:\t\t1-"+ACCEPTED+ "\t\t2-"+REFUSED);
+                    int choiceStatus;
+                    do {
+                        System.out.print("\nEnter your choice >>\t");
+                        choiceStatus = in.nextInt();
+                    }while (choiceStatus != 1 && choiceStatus != 2);
+                    String status = PENDING;
+                    switch (choiceStatus){
+                        case 1 -> status = ACCEPTED;
+                        case 2 -> status = REFUSED;
+                    }
+                    Dossiers dos = new Dossiers();
+                    if(dossierForm.dossierImplementation.updateDossier(idDossier, status)) {
+                        dos.getDossier(idDossier);
+                        Scanner st = new Scanner(System.in);
+                        System.out.print("\nAdd Description >>>\t");
+                        String desc = st.nextLine();
+                        String msg = "Dossier Number: \t\t"+dos.getCodeDossier()+"\nStatus: \t"+dos.getStatus()+".\n";
+                        if(Objects.equals(dos.getStatus(), "ACCEPTED"))
+                            msg += "\nAmount: "+dos.getMontantRem()+"\n";
+                        msg+= "\nDescription: "+desc+".";
+                        if(mailMessage.sendMessage(email,msg))
+                            System.out.println(GREEN+"Message hase been sent to the patient."+RESET);
+                    }
+                    agentSession();
                     break;
                 case 3:
-
                     break;
             }
             if(choice < 1 || choice > 3){

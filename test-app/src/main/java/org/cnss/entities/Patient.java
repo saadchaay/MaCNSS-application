@@ -3,7 +3,6 @@ package org.cnss.entities;
 import org.cnss.helpers.Database;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Patient {
@@ -95,7 +94,7 @@ public class Patient {
                 ", Email: '" + email + '\'';
     }
 
-    public boolean getPatientByNumber(int number){
+    public String getPatientByNumber(int number){
         String sql = "SELECT * FROM patients WHERE matricule = "+number;
         ResultSet res = db.resultSet(sql);
 //        System.out.println(res);
@@ -106,11 +105,12 @@ public class Patient {
                 this.email = res.getString("email");
                 this.firstName = res.getString("firstname");
                 this.lastName = res.getString("lastname");
+                return email;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return email != null;
+        return null;
     }
 
     //get all Patients

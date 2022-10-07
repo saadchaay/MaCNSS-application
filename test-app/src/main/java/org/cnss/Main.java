@@ -1,22 +1,11 @@
 package org.cnss;
 
-import models.SendEnhancedRequestBody;
-import models.SendEnhancedResponseBody;
-import models.SendRequestMessage;
-import org.cnss.controllers.AgentsRepositoryImpl;
-
 import org.cnss.controllers.Authentification;
 import org.cnss.entities.*;
-import org.cnss.helpers.Database;
 import org.cnss.helpers.LoginForm;
 import org.cnss.helpers.SendMail;
 import org.cnss.helpers.Sessions;
-import services.Courier;
-import services.SendService;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLOutput;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -76,7 +65,7 @@ public class Main {
 
     public static boolean checkFiveMinutes(LocalTime time){
         LocalTime now = LocalTime.now();
-        return now.compareTo(time.plusSeconds(20)) > 0;
+        return now.compareTo(time.plusMinutes(5)) > 0;
     }
 
 

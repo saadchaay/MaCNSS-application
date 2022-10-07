@@ -97,12 +97,10 @@ public class Agents {
         try{
             while ( res.next() ){
                 this.ID = res.getInt("id");
-
                 this.email = res.getString("email");
                 this.password = res.getString("password");
                 this.role = res.getString("role");
                 this.verified = res.getBoolean("verified");
-
                 Agents newAgent = new Agents(this.ID, this.email, this.password, this.role, this.verified);
                 agents.add(newAgent);
 
