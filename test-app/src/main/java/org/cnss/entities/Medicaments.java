@@ -1,10 +1,6 @@
 package org.cnss.entities;
 
-import com.sun.source.tree.InstanceOfTree;
-import org.cnss.helpers.Database;
-
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 public class Medicaments extends Papiers{

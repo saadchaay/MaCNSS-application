@@ -3,14 +3,13 @@ package org.cnss.helpers;
 import org.cnss.controllers.DossierRepositoryImp;
 import org.cnss.entities.*;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static org.cnss.Main.RED;
 import static org.cnss.Main.RESET;
 
 public class DossierForm {
-    DossierRepositoryImp dossierImplementation;
+    DossierRepositoryImp dossierImplementation = new DossierRepositoryImp();
     Consultations consultation;
     ArrayList<Medicaments> medications = new ArrayList<>();
     Medicaments oneMedical = new Medicaments();
@@ -27,7 +26,7 @@ public class DossierForm {
         System.out.print("\nPatient Matricule: ");
         int mat = in.nextInt();
         int newCodeDossier = generateCodeDossier();
-        if(patient.getPatientByNumber(mat)){
+        if(!Objects.equals(patient.getPatientByNumber(mat),null)){
             System.out.println(patient.toString());
             System.out.println("\n ##\t Dossier information: \t##");
             dossier.setCodeDossier(newCodeDossier);
@@ -113,23 +112,23 @@ public class DossierForm {
                     System.out.println((menuDocs.indexOf(m)+1) +"- "+m);
                 }
                 int docTypeScan = in.nextInt();
-                switch (documents.size()){
-                    case 1 -> docTypeScan++;
-                    case 2 -> docTypeScan+=2;
-                    case 3 -> docTypeScan+=3;
-                }
+//                switch (documents.size()){
+//                    case 1 -> docTypeScan++;
+//                    case 2 -> docTypeScan+=2;
+//                    case 3 -> docTypeScan+=3;
+//                }
                 switch (docTypeScan){
                     case 1 -> {
                         documents.put(RADIO, setRadios(dossier));
-                        menuDocs.remove("RADIO");
+//                        menuDocs.remove("RADIO");
                     }
                     case 2 -> {
                         documents.put(SCANNER, setScanners(dossier));
-                        menuDocs.remove("SCANNER");
+//                        menuDocs.remove("SCANNER");
                     }
                     case 3 -> {
                         documents.put(ANALYSE, setAnalyses(dossier));
-                        menuDocs.remove("ANALYSE");
+//                        menuDocs.remove("ANALYSE");
                     }
                     case 4 -> {
                         for (Map.Entry<String, ArrayList<Documents>> doc: documents.entrySet()){
@@ -240,5 +239,14 @@ public class DossierForm {
                     total+=refMeds.getValue();
         }
         return total;
+    }
+
+    public void manageDossier(){
+        ArrayList<Dossiers> dossiers = dossierImplementation.allDossiers();
+        System.out.println("\t\t####  MANAGE DOSSIERS  ####");
+        System.out.println("All Pending dossier: ");
+        for(Dossiers dos: dossiers){
+            System.out.println(dos.toString());
+        }
     }
 }

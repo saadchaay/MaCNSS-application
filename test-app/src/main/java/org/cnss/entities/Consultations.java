@@ -2,9 +2,6 @@ package org.cnss.entities;
 
 import org.cnss.helpers.Database;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class Consultations extends Papiers{
     Database db;
     public Consultations() { db = new Database();}

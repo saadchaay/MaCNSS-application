@@ -2,7 +2,6 @@ package org.cnss.entities;
 
 import org.cnss.helpers.EnumValues;
 
-import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.util.HashMap;
 

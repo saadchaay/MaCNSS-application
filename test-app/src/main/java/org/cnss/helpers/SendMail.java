@@ -41,5 +41,32 @@ public class SendMail {
         }
         return String.valueOf(idOne);
     }
+
+    public Boolean sendMessage(String email, String message){
+        Courier.init("pk_prod_Q02ESMDGP3MRBNMWTZ3Q1XN0A244");
+        SendEnhancedRequestBody sendEnhancedRequestBody = new SendEnhancedRequestBody();
+        SendRequestMessage sendRequestMessage = new SendRequestMessage();
+        System.out.println(email);
+        HashMap<String, String> to = new HashMap<String, String>();
+        to.put("email", email);
+        sendRequestMessage.setTo(to);
+
+        HashMap<String, String> content = new HashMap<String, String>();
+        content.put("title", "Answer for your application");
+        int idOne = Math.abs(UUID.randomUUID().hashCode());
+        content.put("body", message);
+        sendRequestMessage.setContent(content);
+
+        HashMap<String, Object> data = new HashMap<String, Object>();
+        sendRequestMessage.setData(data);
+        sendEnhancedRequestBody.setMessage(sendRequestMessage);
+
+        try {
+            SendEnhancedResponseBody response = new SendService().sendEnhancedMessage(sendEnhancedRequestBody);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
 
